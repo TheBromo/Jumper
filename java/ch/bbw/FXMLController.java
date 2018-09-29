@@ -25,7 +25,7 @@ public class FXMLController implements Initializable {
     private GameManager manager;
     private Image kangaroo;
     private AnimationTimer animationTimer;
-    private long last;
+    private long last ;
 
     private void draw() {
         gc.setFill(Color.SKYBLUE);
@@ -42,13 +42,18 @@ public class FXMLController implements Initializable {
         }
         GameObject object = manager.getPlayer();
         gc.drawImage(kangaroo, object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+
+        gc.setFill(Color.RED);
+        for (int i = 0; i < camera.getHeight(); i = i + 100) {
+            gc.fillRect(0,i,camera.getWidth(),1);
+        }
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gc = canvas.getGraphicsContext2D();
-        manager = new GameManager(new Player(0, 0, 100, 100), new Camera(0, (int) canvas.getHeight()));
+        manager = new GameManager(new Player(0, 0, 100, 100), new Camera(0, (int) canvas.getHeight(), (int) canvas.getWidth()));
 
         canvas.setFocusTraversable(true);
         kangaroo = new Image(getClass().getResourceAsStream("/kangaroo.png"));

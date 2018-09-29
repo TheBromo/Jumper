@@ -6,13 +6,17 @@ import java.util.ArrayList;
 
 class GameManager {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
+    private PlateManager plateManager;
     private Player player;
     private Camera camera;
+    private int amount;
 
     GameManager(Player player, Camera camera) {
         this.player = player;
         this.camera = camera;
         getGameObjects().add(new Plate(40, 70));
+        amount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
+        System.out.println(amount);
     }
 
     void update(long passedTime) {
@@ -32,10 +36,11 @@ class GameManager {
         for (GameObject object : gameObjects) {
             player.checkCollision(object, camera.getY());
         }
-        //TODO: Generate new padles in view
+        //TODO: Generate new paddles in view
+
+
 
         camera.update(player.positionY);
-
     }
 
 
@@ -43,11 +48,9 @@ class GameManager {
         if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.RIGHT)) {
             player.setVelocityX(0);
         }
-
     }
 
     void startMoving(KeyCode kc) {
-
         if (kc.equals(KeyCode.LEFT)) {
             player.setVelocityX(-5.0);
         } else if (kc.equals(KeyCode.RIGHT)) {

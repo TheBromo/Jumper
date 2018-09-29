@@ -13,10 +13,12 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
+
         Scene scene = new Scene(root);
+        root.setFocusTraversable(true);
+
         scene.getStylesheets().add("/styles/Styles.css");
-        
+        stage.setResizable(false);
         stage.setTitle("Jumper");
         stage.setScene(scene);
         stage.show();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.canvas.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -8,5 +9,10 @@
 <?import javafx.scene.layout.*?>
 
 
-<Canvas fx:id="canvas" height="531.0" width="600.0" xmlns="http://javafx.com/javafx/8"
-        xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbw.FXMLController"/>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ch.bbw.FXMLController">
+    <children>
+        <Canvas fx:id="canvas" height="482.0" nodeOrientation="INHERIT" onKeyPressed="#keyPressed"
+                onKeyReleased="#keyReleased" width="641.0"/>
+    </children>
+</AnchorPane>

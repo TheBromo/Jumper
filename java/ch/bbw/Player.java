@@ -4,7 +4,6 @@ public class Player extends GameObject {
 
     private boolean onGround;
     private double velocityX = 0, velocityY;
-    private double gravity = 0.3;
 
 
     Player(int positionX, int positionY, int height, int width) {
@@ -14,6 +13,8 @@ public class Player extends GameObject {
 
     @Override
     public void update(long passedTime) {
+        //TODO: Add animation
+        double gravity = 0.3;
         velocityY += gravity;
         positionY += velocityY;
         positionX += velocityX;
@@ -50,4 +51,11 @@ public class Player extends GameObject {
         onGround = positionX < object.positionX + object.width && positionX + width > object.positionX && positionY + height < object.positionY - offset + object.positionX && positionY + height - 10 > object.positionY - offset;
     }
 
+    boolean isOnGround() {
+        return onGround;
+    }
+
+    public double getVelocityY() {
+        return velocityY;
+    }
 }

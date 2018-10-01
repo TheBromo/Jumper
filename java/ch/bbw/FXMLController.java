@@ -23,9 +23,8 @@ public class FXMLController implements Initializable {
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager manager;
-    private Image kangaroo;
-    private AnimationTimer animationTimer;
-    private long last ;
+    private Image kangaroo, kangarooJumping, kangarooFalling;
+    private long last;
 
     private void draw() {
         gc.setFill(Color.SKYBLUE);
@@ -40,12 +39,18 @@ public class FXMLController implements Initializable {
         for (GameObject object : manager.getGameObjects()) {
             gc.fillRect(object.getPositionX(), object.getPositionY() - camera.getY(), object.getWidth(), object.getHeight());
         }
-        GameObject object = manager.getPlayer();
-        gc.drawImage(kangaroo, object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+        Player player = manager.getPlayer();
+        if (player.isOnGround()) {
+            gc.drawImage(kangaroo, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
+        } else if (player.getVelocityY() > 0) {
+            gc.drawImage(kangarooFalling, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
+        } else {
+            gc.drawImage(kangarooJumping, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
+        }
 
         gc.setFill(Color.RED);
         for (int i = 0; i < camera.getHeight(); i = i + 100) {
-            gc.fillRect(0,i,camera.getWidth(),1);
+            gc.fillRect(0, i, camera.getWidth(), 1);
         }
     }
 
@@ -57,8 +62,10 @@ public class FXMLController implements Initializable {
 
         canvas.setFocusTraversable(true);
         kangaroo = new Image(getClass().getResourceAsStream("/kangaroo.png"));
+        kangarooFalling = new Image(getClass().getResourceAsStream("/kangaroofalling.png"));
+        kangarooJumping = new Image(getClass().getResourceAsStream("/kangarooJumping.png"));
 
-        animationTimer = new AnimationTimer() {
+        AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 manager.update(TimeUnit.NANOSECONDS.toMillis(now - last));

@@ -48,10 +48,10 @@ public class FXMLController implements Initializable {
             gc.drawImage(kangarooJumping, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
         }
 
-        gc.setFill(Color.RED);
-        for (int i = 0; i < camera.getHeight(); i = i + 100) {
-            gc.fillRect(0, i, camera.getWidth(), 1);
-        }
+      //  gc.setFill(Color.RED);
+       // for (int i = 0; i < camera.getHeight(); i = i + 100) {
+         //   gc.fillRect(0, i, camera.getWidth(), 1);
+        //}
     }
 
 

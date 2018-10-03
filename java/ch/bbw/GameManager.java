@@ -33,10 +33,9 @@ class GameManager {
         getGameObjects().removeIf(object -> object.positionY > camera.getY() + camera.getHeight());
 
         //checks if players feet are colliding
-        for (GameObject object : gameObjects) {
-            player.checkCollision(object, camera.getY());
-        }
+
         //TODO: Generate new paddles in view
+        plateManager.update();
 
 
 

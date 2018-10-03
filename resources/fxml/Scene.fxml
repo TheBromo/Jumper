@@ -8,11 +8,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ch.bbw.FXMLController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbw.FXMLController">
     <children>
-        <Canvas fx:id="canvas" height="482.0" nodeOrientation="INHERIT" onKeyPressed="#keyPressed"
-                onKeyReleased="#keyReleased" width="641.0"/>
+        <Canvas fx:id="canvas" height="500.0" nodeOrientation="INHERIT" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" width="700.0" />
     </children>
 </AnchorPane>

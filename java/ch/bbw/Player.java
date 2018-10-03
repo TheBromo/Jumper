@@ -49,7 +49,9 @@ public class Player extends GameObject {
     void checkCollision(GameObject object, int offset) {
         //returns if the feet collide with the object
         onGround = positionX < object.positionX + object.width &&
-                positionX + width > object.positionX && positionY < object.positionY - offset + object.height && positionY + height > object.positionY - offset;
+                positionX + width > object.positionX &&
+                positionY < object.positionY - offset + object.height &&
+                positionY + height > object.positionY - offset;
     }
 
     boolean isOnGround() {

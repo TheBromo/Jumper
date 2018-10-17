@@ -10,7 +10,7 @@ public abstract class GameObject {
         this.width = width;
     }
 
-    public abstract void update(long passedTime);
+    public abstract void update();
 
     public abstract void collide();
 

@@ -2,40 +2,38 @@ package ch.bbw;
 
 import java.util.ArrayList;
 
-public class PlateManager {
+class PlateManager {
     private ArrayList<GameObject> objects = new ArrayList<>();
     private Camera camera;
-    private int maxAmount, lastGeneratedYCoor=0;
+    private int maxAmount, lastGeneratedYCoor;
 
     PlateManager(Camera camera) {
         this.camera = camera;
         maxAmount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
         System.out.println(maxAmount);
+        lastGeneratedYCoor = camera.getY();
     }
 
 
     void update() {
-        objects.removeIf(object -> object.getHeight() > camera.getY() + camera.getHeight());
-        //TODO: add layer adding
-        if (camera.getY() < lastGeneratedYCoor -100) {
-            objects.addAll(generateNewLayer(camera.getY(),0.3));
+        objects.removeIf(object -> object.positionY > camera.getY() + camera.getHeight() );
+        if (camera.getY() < lastGeneratedYCoor - 100) {
+            objects.addAll(generateNewLayer(camera.getY()));
 
         }
+        System.out.println(objects.size());
     }
 
     ArrayList<GameObject> getObjects() {
         return objects;
     }
 
-    ArrayList<GameObject> generateNewLayer(int yCoor, double probability) {
+    private ArrayList<GameObject> generateNewLayer(int yCoor) {
         ArrayList<GameObject> plates = new ArrayList<>();
-        System.out.println("yCoor = [" + yCoor + "], probability = [" + probability + "]");
-        System.out.println("lastGeneratedYCoor = " + lastGeneratedYCoor);
         lastGeneratedYCoor = yCoor - (yCoor % 100);
-        System.out.println("lastGeneratedYCoor = " + lastGeneratedYCoor);
         for (int i = 0; i < maxAmount; i++) {
-            if (Math.random() < probability) {
-                plates.add(new Plate(100 * i +10, lastGeneratedYCoor));
+            if (Math.random() < 0.3) {
+                plates.add(new Plate(100 * i + 10, lastGeneratedYCoor));
             }
         }
         return plates;

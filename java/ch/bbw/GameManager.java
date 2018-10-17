@@ -15,32 +15,24 @@ class GameManager {
         this.player = player;
         this.camera = camera;
         plateManager = new PlateManager(camera);
-        getGameObjects().add(new Plate(40, 70));
+        getGameObjects().add(new Plate(40, 0));
         amount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
-        System.out.println(amount);
     }
 
-    void update(long passedTime) {
+    void update() {
 
         //moves the player
-        player.update(passedTime);
-
-        //moves all tiles according to
-        for (GameObject object : plateManager.getObjects()) {
-            object.update(passedTime);
-        }
-
-        //checks if players feet are colliding
-        for (GameObject object : plateManager.getObjects()) {
-            player.checkCollision(object, camera.getY());
-            if (player.isOnGround())break;
-        }
+        player.update();
         //adds and removes plates
         plateManager.update();
 
-        System.out.println("camera = " + camera.getY());
-        System.out.println("player = " + player.getPositionY());
-        camera.update(player.positionY);
+        //checks if players feet are colliding
+        for (GameObject object : plateManager.getObjects()) {
+            player.checkCollision(object);
+            if (player.isOnGround()) break;
+        }
+
+        camera.update(player.getPositionY());
     }
 
 

@@ -12,9 +12,9 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void update(long passedTime) {
+    public void update() {
         //TODO: Add animation
-        double gravity = 0.3;
+        double gravity = 0.1;
         velocityY += gravity;
         positionY += velocityY;
         positionX += velocityX;
@@ -29,6 +29,7 @@ public class Player extends GameObject {
 
     private void startJump() {
         if (onGround) {
+            System.out.println("collided");
             velocityY = -12.0;
             onGround = false;
         }
@@ -46,12 +47,12 @@ public class Player extends GameObject {
         if (velocityY < -30.0) velocityY = -4.0;
     }
 
-    void checkCollision(GameObject object, int offset) {
+    void checkCollision(GameObject object) {
         //returns if the feet collide with the object
         onGround = positionX < object.positionX + object.width &&
                 positionX + width > object.positionX &&
-                positionY < object.positionY - offset + object.height &&
-                positionY + height > object.positionY - offset;
+                positionY < object.positionY  + object.height &&
+                positionY + height > object.positionY ;
     }
 
     boolean isOnGround() {

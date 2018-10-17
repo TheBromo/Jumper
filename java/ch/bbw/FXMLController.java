@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class FXMLController implements Initializable {
 
@@ -29,15 +32,21 @@ public class FXMLController implements Initializable {
     private void draw() {
         gc.setFill(Color.SKYBLUE);
         Camera camera = manager.getCamera();
-
         gc.fillRect(0, camera.getY(), canvas.getWidth(), canvas.getHeight() - camera.getY());
 
-        if (camera.isChanged()) {
-            gc.translate(0, -camera.getY());
-        }
-        gc.setFill(Color.SADDLEBROWN);
+        gc.translate(0, -camera.getY());
+        gc.setFill(Color.BLACK);
+        gc.fillRect(0, camera.getY(), 3, 3);
+
+
+        gc.fillRect(0, -350, 3, 3);
         for (GameObject object : manager.getGameObjects()) {
-            gc.fillRect(object.getPositionX(), object.getPositionY() - camera.getY(), object.getWidth(), object.getHeight());
+            gc.setFill(Color.SADDLEBROWN);
+
+            gc.fillRect(object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+            gc.setFill(Color.RED);
+
+            gc.fillText("Y: " + object.positionY, object.getPositionX(), object.getPositionY());
         }
         Player player = manager.getPlayer();
         if (player.isOnGround()) {
@@ -48,10 +57,21 @@ public class FXMLController implements Initializable {
             gc.drawImage(kangarooJumping, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
         }
 
-      //  gc.setFill(Color.RED);
-       // for (int i = 0; i < camera.getHeight(); i = i + 100) {
-         //   gc.fillRect(0, i, camera.getWidth(), 1);
-        //}
+        gc.fillText("X: " + player.getPositionX() + "\nY: " + player.getPositionY(), 0, camera.getY() + 40);
+
+        gc.fillText("X: 0" + "\nY: " + camera.getY(), 0, camera.getY() + 80);
+
+        if (player.getPositionY() > camera.getHeight() + camera.getY()) {
+            //System.exit(0);
+        }
+
+        gc.setStroke(Color.RED);
+        gc.strokeRect(player.positionX, player.positionY - (double) (camera.getHeight()) / 2, player.width, (double) camera.getHeight() / 2);
+        int start = camera.getY() - camera.getHeight() % 100;
+        for (int i = 0; i < camera.getHeight(); i = i + 100) {
+            gc.fillRect(0, start + i, camera.getWidth(), 1);
+        }
+        gc.translate(0, camera.getY());
     }
 
 
@@ -65,15 +85,15 @@ public class FXMLController implements Initializable {
         kangarooFalling = new Image(getClass().getResourceAsStream("/kangaroofalling.png"));
         kangarooJumping = new Image(getClass().getResourceAsStream("/kangarooJumping.png"));
 
-        AnimationTimer animationTimer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                manager.update(TimeUnit.NANOSECONDS.toMillis(now - last));
-                last = now;
-                draw();
-            }
-        };
-        animationTimer.start();
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(16.666666666667),
+                ae -> {
+                    manager.update();
+                    draw();
+                }
+        ));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     @FXML

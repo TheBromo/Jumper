@@ -7,7 +7,7 @@ public class PlateManager {
     private Camera camera;
     private int maxAmount;
 
-    public PlateManager(Camera camera) {
+    PlateManager(Camera camera) {
         this.camera = camera;
         maxAmount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
     }
@@ -20,5 +20,11 @@ public class PlateManager {
     public void update() {
         layers.removeIf(object -> object.getHeight() > camera.getY() + camera.getHeight());
         //TODO: add layer adding
+    }
+
+    public ArrayList<GameObject> getLayers() {
+        ArrayList<GameObject> objects = new ArrayList<>();
+        layers.forEach(layer -> objects.addAll(layer.getPlates()));
+        return objects;
     }
 }

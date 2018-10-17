@@ -8,12 +8,7 @@ class Layer {
     private int height;
 
     public Layer(int maxAmount, int yCoor, double probability) {
-        height = yCoor;
-        for (int i = 0; i < maxAmount; i++) {
-            if (Math.random() < probability) {
-                plates.add(new Plate(100 * i, yCoor));
-            }
-        }
+
     }
 
     public int getHeight() {

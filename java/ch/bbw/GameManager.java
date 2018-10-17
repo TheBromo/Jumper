@@ -26,18 +26,20 @@ class GameManager {
         player.update(passedTime);
 
         //moves all tiles according to
-        for (GameObject object : plateManager.getLayers()) {
+        for (GameObject object : plateManager.getObjects()) {
             object.update(passedTime);
         }
 
         //checks if players feet are colliding
-        for (GameObject object : plateManager.getLayers()) {
+        for (GameObject object : plateManager.getObjects()) {
             player.checkCollision(object, camera.getY());
+            if (player.isOnGround())break;
         }
         //adds and removes plates
         plateManager.update();
 
-
+        System.out.println("camera = " + camera.getY());
+        System.out.println("player = " + player.getPositionY());
         camera.update(player.positionY);
     }
 
@@ -57,7 +59,7 @@ class GameManager {
     }
 
     ArrayList<GameObject> getGameObjects() {
-        return plateManager.getLayers();
+        return plateManager.getObjects();
     }
 
     Player getPlayer() {

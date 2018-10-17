@@ -16,6 +16,8 @@ class Camera {
     }
 
     void update(int newY) {
+        System.out.println("newY = " + newY);
+        System.out.println("y = " + y);
         if (newY < y) {
             y = newY;
             changed = true;

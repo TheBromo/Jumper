@@ -10,6 +10,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.bbw.FXMLController">
     <children>
-        <Canvas fx:id="canvas" height="500.0" nodeOrientation="INHERIT" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" width="700.0" />
+        <Canvas fx:id="canvas" height="900.0" nodeOrientation="INHERIT" onKeyPressed="#keyPressed" onKeyReleased="#keyReleased" width="700.0" />
     </children>
 </AnchorPane>

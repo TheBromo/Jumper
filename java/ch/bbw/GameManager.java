@@ -37,6 +37,7 @@ class GameManager {
 
 
     void stopMoving(KeyCode kc) {
+        //TODO: Add ad controls
         if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.RIGHT)) {
             player.setVelocityX(0);
         }

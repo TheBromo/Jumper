@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode;
 import java.util.ArrayList;
 
 class GameManager {
-    //TODO: Add JAVADoc
     private PlateManager plateManager;
     private Player player;
     private Camera camera;

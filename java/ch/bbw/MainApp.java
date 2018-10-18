@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
-    //TODO: Add JAVADoc
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));

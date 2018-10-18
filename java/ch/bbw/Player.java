@@ -1,24 +1,30 @@
 package ch.bbw;
 
 public class Player extends GameObject {
-    //TODO: Add JAVADoc
 
-    private boolean onGround,falling;
+    private int sceenW;
+    private boolean onGround;
     private double velocityX = 0, velocityY;
 
 
-    Player(int positionX, int positionY, int height, int width) {
+    Player(int positionX, int positionY, int height, int width, int sceenW) {
         super(positionX, positionY, height, width);
         onGround = true;
+        this.sceenW = sceenW;
     }
 
     @Override
     public void update() {
-        //TODO: Add animation
         double gravity = 0.2;
         velocityY += gravity;
-        positionY += velocityY;
-        positionX += velocityX;
+        setPositionY((int) (getPositionY() + velocityY));
+        setPositionX((int) (getPositionX() + velocityX));
+
+        if (getPositionX() > sceenW) {
+            setPositionX(0);
+        } else if (getPositionX() < 0) {
+            setPositionX(sceenW);
+        }
         startJump();
         endJump();
     }
@@ -48,12 +54,24 @@ public class Player extends GameObject {
     }
 
     void checkCollision(GameObject object) {
-        //TODO: Adjust Hitbox
         //returns if the feet collide with the object
-        onGround = positionX < object.positionX + object.width &&
-                positionX + width > object.positionX &&
-                positionY < object.positionY + object.height &&
-                positionY + height > object.positionY && velocityY>0;
+        int positionX = getPositionX(), positionY = getPositionY(), height = getHeight(), width = getWidth();
+        int objPositionX = object.getPositionX(), objPositionY = object.getPositionY(), objHeight = object.getHeight(), objWidth = object.getWidth();
+
+        if (positionX + width > sceenW) {
+            onGround = ((positionX < objPositionX + objWidth && positionX + width > objPositionX) ||
+                    (positionX - sceenW < objPositionX + objWidth && positionX - sceenW + width > objPositionX))
+
+                    && velocityY > 0 &&
+                    positionY + height - 20 < objPositionY + objHeight &&
+                    positionY + height > objPositionY;
+
+        } else {
+            onGround = positionX < objPositionX + objWidth &&
+                    positionX + width > objPositionX &&
+                    positionY + height - 20 < objPositionY + objHeight &&
+                    positionY + height > objPositionY && velocityY > 0;
+        }
     }
 
     boolean isOnGround() {

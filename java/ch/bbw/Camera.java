@@ -1,7 +1,6 @@
 package ch.bbw;
 
 class Camera {
-    //TODO: Add JAVADoc
     private int y, height, width;
 
     Camera(int y, int height, int width) {

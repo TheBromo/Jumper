@@ -1,8 +1,17 @@
 package ch.bbw;
 
+import javafx.scene.image.Image;
+
 public class Plate extends GameObject {
-    Plate(int positionX, int positionY) {
+    private Image img;
+
+    Plate(int positionX, int positionY, Image img) {
         super(positionX, positionY, 10, 80);
+        this.img = img;
+    }
+
+    public Image getImg() {
+        return img;
     }
 
     @Override

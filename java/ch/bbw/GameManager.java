@@ -1,5 +1,6 @@
 package ch.bbw;
 
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
 import java.util.ArrayList;
@@ -9,13 +10,16 @@ class GameManager {
     private Player player;
     private Camera camera;
     private int amount;
+    private Image  wood1,wood2;
 
     GameManager(Player player, Camera camera) {
         this.player = player;
         this.camera = camera;
         plateManager = new PlateManager(camera);
-        getGameObjects().add(new Plate(40, 0));
-        getGameObjects().add(new Plate(10, -150));
+        wood1 = new Image(getClass().getResourceAsStream(FXMLController.wood1Path));
+        wood2 = new Image(getClass().getResourceAsStream(FXMLController.wood2Path));
+        getGameObjects().add(new Plate(40, 0,wood1));
+        getGameObjects().add(new Plate(10, -150,wood2));
         amount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
     }
 

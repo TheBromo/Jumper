@@ -1,11 +1,14 @@
 package ch.bbw;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 
 class PlateManager {
     private ArrayList<GameObject> objects = new ArrayList<>();
     private Camera camera;
     private int maxAmount, lastGeneratedYCoor, lastNoGenerated;
+    private Image wood1, wood2;
 
     //TODO: maybe add better jumping tiles
 
@@ -14,6 +17,8 @@ class PlateManager {
         this.camera = camera;
         maxAmount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
         lastGeneratedYCoor = camera.getY();
+        wood1 = new Image(getClass().getResourceAsStream(FXMLController.wood1Path));
+        wood2 = new Image(getClass().getResourceAsStream(FXMLController.wood2Path));
     }
 
 
@@ -41,7 +46,7 @@ class PlateManager {
         int count = 0;
         for (int i = 0; i < maxAmount; i++) {
             if (Math.random() <= difficulty) {
-                plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoor));
+                plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoor, Math.random() > 0.5 ? wood1 : wood2));
                 count++;
             }
         }

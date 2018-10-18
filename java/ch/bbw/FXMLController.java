@@ -25,18 +25,18 @@ import javafx.util.Duration;
 
 public class FXMLController implements Initializable {
 
+    static String wood1Path = "/wood1.png", wood2Path = "/wood2.png";
     @FXML
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager manager;
-    private Image kangaroo, kangarooJumping, kangarooFalling, background;
+    private Image kangaroo, kangarooJumping, kangarooFalling, background, wood1, wood2;
     private boolean lost;
     private Timeline timeline;
     private ScoreManager scoreManager;
     private int highScore;
 
     //TODO: Make The paddles a snake
-    //TODO: implement highScore
     private void draw() {
         if (lost) {
 
@@ -55,12 +55,11 @@ public class FXMLController implements Initializable {
 
             gc.setFill(Color.SADDLEBROWN);
             for (GameObject object : manager.getGameObjects()) {
-
-                gc.fillRect(object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+                gc.drawImage(((Plate) object).getImg(), object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
             }
 
             Player player = manager.getPlayer();
-            gc.setFill(Color.web("#f28452"));
+            gc.setFill(Color.web("#EDDFD3"));
             gc.fillText("Score: " + -camera.getY(), canvas.getWidth() / 2, camera.getY() + 20);
 
             if (player.getPositionX() + player.getWidth() > canvas.getWidth()) {
@@ -86,7 +85,7 @@ public class FXMLController implements Initializable {
             }
 
 
-            if (player.getPositionY() > camera.getHeight() + camera.getY()&&!lost) {
+            if (player.getPositionY() > camera.getHeight() + camera.getY() && !lost) {
                 lost = true;
                 scoreManager.addScore(camera.getY());
                 highScore = scoreManager.getHighScore();

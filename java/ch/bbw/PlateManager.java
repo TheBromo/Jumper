@@ -8,7 +8,7 @@ class PlateManager {
     private ArrayList<GameObject> objects = new ArrayList<>();
     private Camera camera;
     private int maxAmount, lastGeneratedYCoor, lastNoGenerated;
-    private Image wood1, wood2;
+    private Image wood1, wood2, neutral, jump, after;
 
     //TODO: maybe add better jumping tiles
 
@@ -19,6 +19,9 @@ class PlateManager {
         lastGeneratedYCoor = camera.getY();
         wood1 = new Image(getClass().getResourceAsStream(FXMLController.wood1Path));
         wood2 = new Image(getClass().getResourceAsStream(FXMLController.wood2Path));
+        neutral = new Image(getClass().getResourceAsStream(FXMLController.neutralPath));
+        jump = new Image(getClass().getResourceAsStream(FXMLController.jumpPath));
+        after = new Image(getClass().getResourceAsStream(FXMLController.afterPath));
     }
 
 
@@ -34,6 +37,8 @@ class PlateManager {
 
             } while (lastNoGenerated >= 2);
         }
+
+        objects.forEach(GameObject::update);
     }
 
     ArrayList<GameObject> getObjects() {
@@ -46,7 +51,11 @@ class PlateManager {
         int count = 0;
         for (int i = 0; i < maxAmount; i++) {
             if (Math.random() <= difficulty) {
-                plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoor, Math.random() > 0.5 ? wood1 : wood2));
+                if (Math.random() > 0.1) {
+                    plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoor, Math.random() > 0.5 ? wood1 : wood2));
+                } else {
+                    plates.add(new Snake(100 * i++ + 10, lastGeneratedYCoor, 10, 80,neutral,jump,after));
+                }
                 count++;
             }
         }

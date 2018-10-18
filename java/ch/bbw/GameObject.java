@@ -12,7 +12,7 @@ public abstract class GameObject {
 
     public abstract void update();
 
-    public abstract void collide();
+    public abstract void collide(GameObject object);
 
     public int getPositionX() {
         return positionX;

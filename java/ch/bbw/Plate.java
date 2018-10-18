@@ -19,6 +19,6 @@ public class Plate extends GameObject {
     }
 
     @Override
-    public void collide() {
+    public void collide(GameObject object) {
     }
 }

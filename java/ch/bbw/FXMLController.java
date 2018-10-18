@@ -25,7 +25,7 @@ import javafx.util.Duration;
 
 public class FXMLController implements Initializable {
 
-    static String wood1Path = "/wood1.png", wood2Path = "/wood2.png";
+    static String wood1Path = "/wood1.png", wood2Path = "/wood2.png", neutralPath = "/snake1.png", jumpPath = "/snake2.png", afterPath = "/snake3.png";
     @FXML
     private Canvas canvas;
     private GraphicsContext gc;
@@ -55,7 +55,12 @@ public class FXMLController implements Initializable {
 
             gc.setFill(Color.SADDLEBROWN);
             for (GameObject object : manager.getGameObjects()) {
-                gc.drawImage(((Plate) object).getImg(), object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+                if (object instanceof Snake) {
+                    gc.drawImage(((Snake)object).getImg(), object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+
+                } else {
+                    gc.drawImage(((Plate) object).getImg(), object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
+                }
             }
 
             Player player = manager.getPlayer();

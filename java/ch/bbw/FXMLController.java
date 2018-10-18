@@ -29,13 +29,13 @@ public class FXMLController implements Initializable {
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager manager;
-    private Image kangaroo, kangarooJumping, kangarooFalling;
+    private Image kangaroo, kangarooJumping, kangarooFalling,background;
     private boolean lost;
     private Timeline timeline;
 
-    //TODO: Add Restart
+
     //TODO: Make The paddles a snake
-    //TODO: add Background
+    //TODO: implement highscore
     private void draw() {
         if (lost) {
             gc.setFill(Color.PAPAYAWHIP);
@@ -44,10 +44,9 @@ public class FXMLController implements Initializable {
             gc.fillText("Your Score: "+ -manager.getCamera().getY()+"\n\n\nOh no!\n It seems like you've lost.\n\n \nTo try again \npress any key.",canvas.getWidth()/2,canvas.getHeight()/2);
 
         } else {
-            //FIXME: canvas
-            gc.setFill(Color.SKYBLUE);
+
             Camera camera = manager.getCamera();
-            gc.fillRect(0, camera.getY(), canvas.getWidth(), canvas.getHeight() - camera.getY());
+            gc.drawImage(background, 0,0, canvas.getWidth(), canvas.getHeight());
 
             gc.translate(0, -camera.getY());
 
@@ -58,7 +57,7 @@ public class FXMLController implements Initializable {
             }
 
             Player player = manager.getPlayer();
-            gc.setFill(Color.web("#360E0B"));
+            gc.setFill(Color.web("#f28452"));
             gc.fillText("Score: " + -camera.getY(), canvas.getWidth()/2, camera.getY()+20);
 
             if (player.getPositionX() + player.getWidth() > canvas.getWidth()) {
@@ -104,6 +103,8 @@ public class FXMLController implements Initializable {
         kangaroo = new Image(getClass().getResourceAsStream("/kangaroo.png"));
         kangarooFalling = new Image(getClass().getResourceAsStream("/kangaroofalling.png"));
         kangarooJumping = new Image(getClass().getResourceAsStream("/kangarooJumping.png"));
+        background = new Image(getClass().getResourceAsStream("/background.png"));
+
         gc.setFont(Font.loadFont(ClassLoader.getSystemResource("Mali-Regular.ttf" ).toExternalForm(), 40));
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);

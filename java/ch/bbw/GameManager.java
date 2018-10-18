@@ -5,7 +5,7 @@ import javafx.scene.input.KeyCode;
 import java.util.ArrayList;
 
 class GameManager {
-
+    //TODO: Add JAVADoc
     private PlateManager plateManager;
     private Player player;
     private Camera camera;
@@ -16,6 +16,7 @@ class GameManager {
         this.camera = camera;
         plateManager = new PlateManager(camera);
         getGameObjects().add(new Plate(40, 0));
+        getGameObjects().add(new Plate(10, -150));
         amount = (camera.getWidth() - (camera.getWidth() % 100)) / 100;
     }
 
@@ -37,16 +38,15 @@ class GameManager {
 
 
     void stopMoving(KeyCode kc) {
-        //TODO: Add ad controls
-        if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.RIGHT)) {
+        if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.RIGHT) || kc.equals(KeyCode.A) || kc.equals(KeyCode.D)) {
             player.setVelocityX(0);
         }
     }
 
     void startMoving(KeyCode kc) {
-        if (kc.equals(KeyCode.LEFT)) {
+        if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.A)) {
             player.setVelocityX(-5.0);
-        } else if (kc.equals(KeyCode.RIGHT)) {
+        } else if (kc.equals(KeyCode.RIGHT) || kc.equals(KeyCode.D)) {
             player.setVelocityX(5.0);
         }
     }

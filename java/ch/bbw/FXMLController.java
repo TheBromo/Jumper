@@ -27,8 +27,10 @@ public class FXMLController implements Initializable {
     private GraphicsContext gc;
     private GameManager manager;
     private Image kangaroo, kangarooJumping, kangarooFalling;
-
+    //TODO: Add JAVADoc
     //TODO: Add Restart
+    //TODO: Make The paddles a snake
+    //TODO: add Background
     private void draw() {
         //FIXME: canvas
         gc.setFill(Color.SKYBLUE);
@@ -41,10 +43,11 @@ public class FXMLController implements Initializable {
         for (GameObject object : manager.getGameObjects()) {
 
             gc.fillRect(object.getPositionX(), object.getPositionY(), object.getWidth(), object.getHeight());
-
-
         }
+
         Player player = manager.getPlayer();
+        gc.fillText("VelX: "+player.getVelocityX() +"\nVelY: "+player.getVelocityY(),0,camera.getY());
+
         if (player.isOnGround()) {
             gc.drawImage(kangaroo, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
         } else if (player.getVelocityY() > 0) {

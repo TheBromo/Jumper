@@ -1,8 +1,9 @@
 package ch.bbw;
 
 public class Player extends GameObject {
+    //TODO: Add JAVADoc
 
-    private boolean onGround;
+    private boolean onGround,falling;
     private double velocityX = 0, velocityY;
 
 
@@ -52,7 +53,7 @@ public class Player extends GameObject {
         onGround = positionX < object.positionX + object.width &&
                 positionX + width > object.positionX &&
                 positionY < object.positionY + object.height &&
-                positionY + height > object.positionY;
+                positionY + height > object.positionY && velocityY>0;
     }
 
     boolean isOnGround() {

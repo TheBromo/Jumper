@@ -1,6 +1,7 @@
 package ch.bbw;
 
 public abstract class GameObject {
+    //TODO: Add JAVADoc
     int positionX, positionY, height, width;
 
     public GameObject(int positionX, int positionY, int height, int width) {

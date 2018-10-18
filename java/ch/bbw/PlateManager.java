@@ -3,6 +3,7 @@ package ch.bbw;
 import java.util.ArrayList;
 
 class PlateManager {
+    //TODO: Add JAVADoc
     private ArrayList<GameObject> objects = new ArrayList<>();
     private Camera camera;
     private int maxAmount, lastGeneratedYCoor;

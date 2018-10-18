@@ -23,10 +23,11 @@ class PlateManager {
 
         //add new objects
         if (camera.getY() < lastGeneratedYCoor - 150) {
+            double difficulty = 0.5 + ((double) camera.getY() / (double) (camera.getY() + 100000));
             do {
-                objects.addAll(generateNewLayer(camera.getY()));
+                objects.addAll(generateNewLayer(camera.getY(), difficulty));
 
-            } while (lastNoGenerated  >2);
+            } while (lastNoGenerated >= 2);
         }
     }
 
@@ -34,19 +35,18 @@ class PlateManager {
         return objects;
     }
 
-    private ArrayList<GameObject> generateNewLayer(int yCoor) {
+    private ArrayList<GameObject> generateNewLayer(int yCoor, double difficulty) {
         ArrayList<GameObject> plates = new ArrayList<>();
         lastGeneratedYCoor = yCoor - (yCoor % 150);
         int count = 0;
         for (int i = 0; i < maxAmount; i++) {
-            if (Math.random() <= 0.3) {
+            if (Math.random() <= difficulty) {
                 plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoor));
                 count++;
             }
         }
         if (count == 0) {
             lastNoGenerated++;
-            System.out.println(lastNoGenerated);
         } else {
             lastNoGenerated = 0;
         }

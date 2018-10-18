@@ -29,24 +29,27 @@ public class FXMLController implements Initializable {
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager manager;
-    private Image kangaroo, kangarooJumping, kangarooFalling,background;
+    private Image kangaroo, kangarooJumping, kangarooFalling, background;
     private boolean lost;
     private Timeline timeline;
-
+    private ScoreManager scoreManager;
+    private int highScore;
 
     //TODO: Make The paddles a snake
-    //TODO: implement highscore
+    //TODO: implement highScore
     private void draw() {
         if (lost) {
+
             gc.setFill(Color.PAPAYAWHIP);
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
             gc.setFill(Color.web("#360E0B"));
-            gc.fillText("Your Score: "+ -manager.getCamera().getY()+"\n\n\nOh no!\n It seems like you've lost.\n\n \nTo try again \npress any key.",canvas.getWidth()/2,canvas.getHeight()/2);
+            gc.fillText(" Highscore: " + highScore + "\n\n\n " +
+                    "Your Score: " + -manager.getCamera().getY() + "\n\n\nOh no!\n It seems like you've lost.\n\n \nTo try again \npress any key.", canvas.getWidth() / 2, canvas.getHeight() / 2);
 
         } else {
 
             Camera camera = manager.getCamera();
-            gc.drawImage(background, 0,0, canvas.getWidth(), canvas.getHeight());
+            gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
 
             gc.translate(0, -camera.getY());
 
@@ -58,7 +61,7 @@ public class FXMLController implements Initializable {
 
             Player player = manager.getPlayer();
             gc.setFill(Color.web("#f28452"));
-            gc.fillText("Score: " + -camera.getY(), canvas.getWidth()/2, camera.getY()+20);
+            gc.fillText("Score: " + -camera.getY(), canvas.getWidth() / 2, camera.getY() + 20);
 
             if (player.getPositionX() + player.getWidth() > canvas.getWidth()) {
                 if (player.isOnGround()) {
@@ -83,8 +86,11 @@ public class FXMLController implements Initializable {
             }
 
 
-            if (player.getPositionY() > camera.getHeight() + camera.getY()) {
+            if (player.getPositionY() > camera.getHeight() + camera.getY()&&!lost) {
                 lost = true;
+                scoreManager.addScore(camera.getY());
+                highScore = scoreManager.getHighScore();
+
             }
 
 
@@ -100,12 +106,14 @@ public class FXMLController implements Initializable {
         manager = new GameManager(new Player(0, 0, 80, 80, (int) canvas.getWidth()), new Camera(0, (int) canvas.getHeight(), (int) canvas.getWidth()));
         lost = false;
         canvas.setFocusTraversable(true);
+        scoreManager = new ScoreManager();
         kangaroo = new Image(getClass().getResourceAsStream("/kangaroo.png"));
         kangarooFalling = new Image(getClass().getResourceAsStream("/kangaroofalling.png"));
         kangarooJumping = new Image(getClass().getResourceAsStream("/kangarooJumping.png"));
         background = new Image(getClass().getResourceAsStream("/background.png"));
 
-        gc.setFont(Font.loadFont(ClassLoader.getSystemResource("Mali-Regular.ttf" ).toExternalForm(), 40));
+
+        gc.setFont(Font.loadFont(ClassLoader.getSystemResource("Mali-Regular.ttf").toExternalForm(), 40));
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
         timeline = new Timeline(new KeyFrame(
@@ -121,10 +129,10 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
-        if (lost){
+        if (lost) {
             timeline.stop();
-            initialize(null,null);
-        }else {
+            initialize(null, null);
+        } else {
             manager.startMoving(keyEvent.getCode());
         }
     }

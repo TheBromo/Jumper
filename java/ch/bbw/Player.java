@@ -1,11 +1,9 @@
 package ch.bbw;
 
 public class Player extends GameObject {
-
     private int sceenW;
     private boolean onGround, jumpad;
     private double velocityX = 0, velocityY, gravity;
-
 
     Player(int positionX, int positionY, int height, int width, int sceenW) {
         super(positionX, positionY, height, width);
@@ -16,7 +14,6 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-
         velocityY += gravity;
         if (velocityY > 0) {
             gravity = 0.2;
@@ -50,10 +47,6 @@ public class Player extends GameObject {
                 jumpad = false;
             }
         }
-    }
-
-    public double getVelocityX() {
-        return velocityX;
     }
 
     void setVelocityX(double velocityX) {
@@ -92,7 +85,7 @@ public class Player extends GameObject {
         return onGround;
     }
 
-    public double getVelocityY() {
+    double getVelocityY() {
         return velocityY;
     }
 }

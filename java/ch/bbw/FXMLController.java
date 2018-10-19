@@ -2,21 +2,14 @@ package ch.bbw;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
-
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -25,29 +18,26 @@ import javafx.util.Duration;
 
 public class FXMLController implements Initializable {
 
-    static String wood1Path = "/wood1.png", wood2Path = "/wood2.png", neutralPath = "/snake1.png", jumpPath = "/snake2.png", afterPath = "/snake3.png";
     @FXML
     private Canvas canvas;
     private GraphicsContext gc;
     private GameManager manager;
-    private Image kangaroo, kangarooJumping, kangarooFalling, background, wood1, wood2;
+    private Image kangaroo, kangarooJumping, kangarooFalling, background;
     private boolean lost;
     private Timeline timeline;
     private ScoreManager scoreManager;
     private int highScore;
+    static String wood1Path = "/wood1.png", wood2Path = "/wood2.png", neutralPath = "/snake1.png", jumpPath = "/snake2.png", afterPath = "/snake3.png";
 
-    //TODO: Make The paddles a snake
     private void draw() {
         if (lost) {
-
             gc.setFill(Color.PAPAYAWHIP);
             gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
             gc.setFill(Color.web("#360E0B"));
             gc.fillText(" Highscore: " + highScore + "\n\n\n " +
-                    "Your Score: " + -manager.getCamera().getY() + "\n\n\nOh no!\n It seems like you've lost.\n\n \nTo try again \npress any key.", canvas.getWidth() / 2, canvas.getHeight() / 2);
-
+                    "Your Score: " + -manager.getCamera().getY() + "\n\n\nOh no!\n It seems like you've lost." +
+                    "\n\n \nTo try again \npress any key.", canvas.getWidth() / 2, canvas.getHeight() / 2);
         } else {
-
             Camera camera = manager.getCamera();
             gc.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
 
@@ -71,7 +61,6 @@ public class FXMLController implements Initializable {
                 if (player.isOnGround()) {
                     gc.drawImage(kangaroo, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
                     gc.drawImage(kangaroo, player.getPositionX() - canvas.getWidth(), player.getPositionY(), player.getWidth(), player.getHeight());
-
                 } else if (player.getVelocityY() > 0) {
                     gc.drawImage(kangarooFalling, player.getPositionX(), player.getPositionY(), player.getWidth(), player.getHeight());
                     gc.drawImage(kangarooFalling, player.getPositionX() - canvas.getWidth(), player.getPositionY(), player.getWidth(), player.getHeight());
@@ -89,7 +78,6 @@ public class FXMLController implements Initializable {
                 }
             }
 
-
             if (player.getPositionY() > camera.getHeight() + camera.getY() && !lost) {
                 lost = true;
                 scoreManager.addScore(camera.getY());
@@ -97,10 +85,8 @@ public class FXMLController implements Initializable {
 
             }
 
-
             gc.translate(0, camera.getY());
         }
-
     }
 
 
@@ -115,7 +101,6 @@ public class FXMLController implements Initializable {
         kangarooFalling = new Image(getClass().getResourceAsStream("/kangaroofalling.png"));
         kangarooJumping = new Image(getClass().getResourceAsStream("/kangarooJumping.png"));
         background = new Image(getClass().getResourceAsStream("/background.png"));
-
 
         gc.setFont(Font.loadFont(ClassLoader.getSystemResource("Mali-Regular.ttf").toExternalForm(), 40));
         gc.setTextAlign(TextAlignment.CENTER);

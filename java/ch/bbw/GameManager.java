@@ -19,12 +19,10 @@ class GameManager {
     }
 
     void update() {
-
         //moves the player
         player.update();
         //adds and removes plates
         plateManager.update();
-
         //checks if players feet are colliding
         for (GameObject object : plateManager.getObjects()) {
             player.checkCollision(object);
@@ -33,7 +31,6 @@ class GameManager {
                 break;
             }
         }
-
         camera.update(player.getPositionY());
     }
 

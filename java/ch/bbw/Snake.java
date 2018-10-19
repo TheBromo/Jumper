@@ -2,21 +2,17 @@ package ch.bbw;
 
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Snake extends GameObject {
     private Image neutral, jump, after, actual;
     private int steps;
 
-    public Snake(int positionX, int positionY, int height, int width, Image neutral, Image jump, Image after) {
+    Snake(int positionX, int positionY, int height, int width, Image neutral, Image jump, Image after) {
         super(positionX, positionY, height, width);
         this.neutral = neutral;
         this.after = after;
         this.jump = jump;
         actual = neutral;
     }
-
 
     @Override
     public void update() {
@@ -42,7 +38,7 @@ public class Snake extends GameObject {
         }
     }
 
-    public Image getImg() {
+    Image getImg() {
         return actual;
     }
 }

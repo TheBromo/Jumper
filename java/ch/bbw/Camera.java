@@ -9,8 +9,6 @@ class Camera {
         this.y = y;
     }
 
-
-
     void update(int playerY) {
         if (playerY < y +(double) (height / 2)) {
             y = (int) (playerY- (double)(height)/2);

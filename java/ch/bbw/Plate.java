@@ -10,7 +10,7 @@ public class Plate extends GameObject {
         this.img = img;
     }
 
-    public Image getImg() {
+    Image getImg() {
         return img;
     }
 

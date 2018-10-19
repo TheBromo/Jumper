@@ -2,13 +2,11 @@ package ch.bbw;
 
 import java.io.*;
 
-public class ScoreManager {
+class ScoreManager {
 
-    public void addScore(int score) {
+    void addScore(int score) {
         try {
-            Writer output;
-
-            output = new BufferedWriter(new FileWriter("highScores.jmp", true));
+            Writer output = new BufferedWriter(new FileWriter("highScores.jmp", true));
             output.append(String.valueOf(-score)).append("\n");
             output.close();
         } catch (IOException e) {
@@ -16,10 +14,9 @@ public class ScoreManager {
         }
     }
 
-    public int getHighScore() {
+    int getHighScore() {
         int highScore = 0;
         try {
-
             BufferedReader reader = new BufferedReader(new FileReader("highScores.jmp"));
             String line;
             while ((line = reader.readLine()) != null) {

@@ -1,8 +1,6 @@
 package ch.bbw;
-
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-
 import java.util.ArrayList;
 
 class GameManager {
@@ -26,14 +24,13 @@ class GameManager {
         //checks if players feet are colliding
         for (GameObject object : plateManager.getObjects()) {
             player.checkCollision(object);
-            if (player.isOnGround()){
+            if (player.isOnGround()) {
                 player.collide(object);
                 break;
             }
         }
         camera.update(player.getPositionY());
     }
-
 
     void stopMoving(KeyCode kc) {
         if (kc.equals(KeyCode.LEFT) || kc.equals(KeyCode.RIGHT) || kc.equals(KeyCode.A) || kc.equals(KeyCode.D)) {

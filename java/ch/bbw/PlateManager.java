@@ -30,6 +30,7 @@ class PlateManager {
         //add new objects
         if (camera.getY() < lastGeneratedYCoordinates - 150) {
             double difficulty = 0.5 + ((double) camera.getY() / (double) (camera.getY() + 100000));
+            if (difficulty < 0.1) difficulty = 0.1;
             do {
                 objects.addAll(generateNewLayer(camera.getY(), difficulty));
 
@@ -52,7 +53,7 @@ class PlateManager {
                 if (Math.random() > 0.1) {
                     plates.add(new Plate(100 * i++ + 10, lastGeneratedYCoordinates, Math.random() > 0.5 ? wood1 : wood2));
                 } else {
-                    plates.add(new Snake(100 * i++ + 10, lastGeneratedYCoordinates, 10, 80,neutral,jump,after));
+                    plates.add(new Snake(100 * i++ + 10, lastGeneratedYCoordinates, 10, 80, neutral, jump, after));
                 }
                 count++;
             }
